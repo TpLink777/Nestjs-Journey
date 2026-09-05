@@ -1,6 +1,6 @@
 
-import type { Move } from "../interface/pokeapi-response.interface"
-import { PokeApiAdpter } from '../api/pokeApi.adapter';
+import { Move, PokeApiResponse } from "../interface/pokeapi-response.interface"
+import { PokeApiAdpter, HttpAdapter } from '../api/pokeApi.adapter';
 
 
 export class Pokemon {
@@ -13,7 +13,7 @@ export class Pokemon {
         public readonly id: number,
         public name: string,
         // Todo: inyectar dependencias
-        public readonly http: PokeApiAdpter
+        public readonly http: HttpAdapter
     ) { }
 
     scream() {
@@ -26,9 +26,9 @@ export class Pokemon {
 
     async getMoves(): Promise<Move[]> {
 
-        const data = await this.http.get(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
+        const data = await this.http.get<PokeApiResponse>(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
 
-        console.log( data.moves );
+        console.log(data.moves);
 
         return data.moves;
     }

@@ -4,6 +4,7 @@ import { AnimalsService } from './animals.service.js';
 
 @Module({
   controllers: [AnimalsController],
-  providers: [AnimalsService]
+  providers: [AnimalsService],
+  exports: [AnimalsService]
 })
 export class AnimalsModule {}

@@ -8,26 +8,7 @@ import { v4 as uuid } from 'uuid'
 @Injectable()
 export class AnimalsService {
 
-    private Animals: AnimalInterface[] = [
-        {
-            id: uuid(),
-            type: 'Mamífero',
-            species: 'Perro',
-            color: 'Negro',
-        },
-        {
-            id: uuid(),
-            type: 'Mamífero',
-            species: 'León',
-            color: 'Naranja',
-        },
-        {
-            id: uuid(),
-            type: 'Mamífero',
-            species: 'Jirafa',
-            color: 'Manchado',
-        },
-    ];
+    private Animals: AnimalInterface[] = [];
 
 
     findAll() {
@@ -97,8 +78,10 @@ export class AnimalsService {
             status: 200,
             message: 'Animal eliminado exitosamente',
         }
-
     }
 
 
+    fillAnimalsWithSeedData( animalsData: AnimalInterface[] ){
+        this.Animals = animalsData
+    }
 }

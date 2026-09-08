@@ -1,12 +1,14 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { AnimalsService } from './animals.service.js';
+import { CreateAniamlDto } from './dtos/create-animal.dto.js';
 
 @Controller('animals')
 export class AnimalsController {
 
     constructor(
         private readonly animalsService: AnimalsService
-    ) { }
+    ) {}
+
 
     @Get()
     findAllAnimals() {
@@ -19,8 +21,8 @@ export class AnimalsController {
     }
 
     @Post('create')
-    createAnimal(@Body() data: any) {
-        return data
+    createAnimal(@Body() createAniamlDto: CreateAniamlDto) {
+        return this.animalsService.createAnimal(createAniamlDto)
     }
 
     @Put('update/:id')

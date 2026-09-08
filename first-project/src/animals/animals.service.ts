@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { AnimalInterface } from './interfaces/animal.interface.js';
 import { v4 as uuid } from 'uuid'
+import { CreateAniamlDto } from './dtos/create-animal.dto.js';
 
 @Injectable()
 export class AnimalsService {
 
-    private Animals : AnimalInterface[] = [
+    private Animals: AnimalInterface[] = [
         {
             id: uuid(),
             type: 'Mamífero',
@@ -38,5 +39,23 @@ export class AnimalsService {
 
         return animal
     }
+
+
+    createAnimal( createAniamlDto : CreateAniamlDto) {
+
+        const newAnimal: AnimalInterface = {
+            id: uuid(),
+            ...createAniamlDto
+        }
+
+        this.Animals.push(newAnimal)
+
+        return {
+            status: 201,
+            message: 'Animal creado exitosamente',
+            newAnimal
+        }
+    }
+
 
 }

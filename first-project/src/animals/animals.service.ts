@@ -1,7 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { AnimalInterface } from './interfaces/animal.interface.js';
+import { CreateAniamlDto, UpdateAniamlDto } from './dtos/index.js';
 import { v4 as uuid } from 'uuid'
-import { CreateAniamlDto } from './dtos/create-animal.dto.js';
+
 
 @Injectable()
 export class AnimalsService {
@@ -41,7 +43,7 @@ export class AnimalsService {
     }
 
 
-    createAnimal( createAniamlDto : CreateAniamlDto) {
+    createAnimal(createAniamlDto: CreateAniamlDto) {
 
         const newAnimal: AnimalInterface = {
             id: uuid(),
@@ -55,6 +57,47 @@ export class AnimalsService {
             message: 'Animal creado exitosamente',
             newAnimal
         }
+    }
+
+
+    updateAnimal(id: string, updateAniamlDto: UpdateAniamlDto) {
+
+        let findAnimal = this.findById(id)
+
+        if (updateAniamlDto.id && updateAniamlDto.id !== id)
+            throw new BadRequestException(`Animal con el id ${id} no es valido`)
+
+        this.Animals = this.Animals.map(animal => {
+            if (animal.id === id) {
+                findAnimal = {
+                    ...findAnimal,
+                    ...updateAniamlDto,
+                    id
+                }
+                return findAnimal
+            }
+            return animal
+        })
+
+        return {
+            status: 200,
+            message: 'Animal actualizado exitosamente',
+            findAnimal
+        }
+    }
+
+
+    deleteAnimal(id: string) {
+
+        this.findById(id)
+
+        this.Animals = this.Animals.filter(animal => animal.id !== id)
+
+        return {
+            status: 200,
+            message: 'Animal eliminado exitosamente',
+        }
+
     }
 
 

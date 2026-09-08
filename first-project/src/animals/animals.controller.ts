@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { AnimalsService } from './animals.service.js';
 
 @Controller('animals')
@@ -14,7 +14,7 @@ export class AnimalsController {
     }
 
     @Get(':id')
-    findAnimalById(@Param('id', ParseIntPipe) id: number) {
+    findAnimalById(@Param('id', ParseUUIDPipe) id: string) {
         return this.animalsService.findById(id)
     }
 
@@ -25,7 +25,7 @@ export class AnimalsController {
 
     @Put('update/:id')
     updateAnimal(
-        @Param('id', ParseIntPipe) id: number,
+        @Param('id', ParseUUIDPipe) id: string,
         @Body() data: any
     ) {
         return data
@@ -33,7 +33,7 @@ export class AnimalsController {
 
 
     @Delete('delete/:id')
-    deleteAnimal(@Param('id') id: number) {
+    deleteAnimal(@Param('id', ParseUUIDPipe) id: string) {
         return "Animal eliminado con id: " + id
     }
 

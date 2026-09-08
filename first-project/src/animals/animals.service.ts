@@ -1,23 +1,25 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { AnimalInterface } from './interfaces/animal.interface.js';
+import { v4 as uuid } from 'uuid'
 
 @Injectable()
 export class AnimalsService {
 
-    private Animals = [
+    private Animals : AnimalInterface[] = [
         {
-            id: 1,
+            id: uuid(),
             type: 'Mamífero',
             species: 'Perro',
             color: 'Negro',
         },
         {
-            id: 2,
+            id: uuid(),
             type: 'Mamífero',
             species: 'León',
             color: 'Naranja',
         },
         {
-            id: 3,
+            id: uuid(),
             type: 'Mamífero',
             species: 'Jirafa',
             color: 'Manchado',
@@ -29,7 +31,7 @@ export class AnimalsService {
         return this.Animals
     }
 
-    findById(id: number) {
+    findById(id: string) {
         const animal = this.Animals.find(animal => animal.id === id)
 
         if (!animal) throw new NotFoundException(`El animal con el id '${id}' no fue encontrado`)

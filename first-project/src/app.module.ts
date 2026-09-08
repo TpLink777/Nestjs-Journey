@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { AnimalsModule } from './animals/animals.module.js';
 
 @Module({
-  imports: [],
+  imports: [AnimalsModule],
   controllers: [],
   providers: [],
   exports: [],

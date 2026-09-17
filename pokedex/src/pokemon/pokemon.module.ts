@@ -9,12 +9,13 @@ import { Pokemon, PokemonSchema } from './entities/pokemon.entity.js';
   controllers: [PokemonController],
   providers: [PokemonService],
   imports: [
-    MongooseModule.forFeature([
+    MongooseModule.forFeature([ //! Registra un modelo de Mongoose en Nest, para poder inyectarlo y usarlo.
       {
         name: Pokemon.name,
         schema: PokemonSchema
       }
     ])
-  ]
+  ],
+  exports: [MongooseModule]
 })
 export class PokemonModule { }

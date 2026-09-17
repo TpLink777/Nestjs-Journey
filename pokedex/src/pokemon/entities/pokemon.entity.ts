@@ -22,4 +22,5 @@ export class Pokemon extends Document {
 
 }
 
+//! representacion de las estructuras/reglas que tendra este documento(Pokemon)
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon) //! Schema de Mongoose generado

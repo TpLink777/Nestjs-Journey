@@ -7,7 +7,7 @@ export class SeedController {
 
   @Get()
   executeSeedController() {
-    return this.seedService.executeSeedService(50)
+    return this.seedService.executeSeedService(650)
   }
 
 }

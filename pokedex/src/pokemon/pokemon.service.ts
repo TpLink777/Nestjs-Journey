@@ -6,6 +6,7 @@ import { isValidObjectId, Model } from 'mongoose';
 import { Pokemon } from './entities/pokemon.entity.js';
 import { CreatePokemonDto } from './dto/create-pokemon.dto.js';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto.js';
+import { PaginationDto } from '../common/dto/pagination.dto.js';
 
 @Injectable()
 export class PokemonService {
@@ -17,7 +18,6 @@ export class PokemonService {
 
 
   private handleExceptions(err: any) {
-
     if (err.code === 11000) {
       throw new BadRequestException(`El pokemon numero ${JSON.stringify(err.keyValue.pokenum)} ya existe en la bd`)
     }
@@ -26,8 +26,15 @@ export class PokemonService {
 
 
 
-  async findAll() {
-    return await this.pokemonRepository.find()
+  findAll(paginationDto: PaginationDto) {
+
+    const { limit = 10, offset = 0 } = paginationDto
+
+    return this.pokemonRepository.find()
+      .limit(limit)
+      .skip(offset)
+      .sort({ pokenum: 1 })
+      .select('-__v')
   }
 
 

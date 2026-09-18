@@ -7,6 +7,9 @@ import { CommonModule } from '../common/common.module.js';
 @Module({
   controllers: [SeedController],
   providers: [SeedService],
-  imports: [PokemonModule, CommonModule]
+  imports: [
+    PokemonModule,
+    CommonModule
+  ]
 })
-export class SeedModule {}
+export class SeedModule { }

@@ -25,7 +25,7 @@ export class SeedService {
     await this.pokemonRepository.deleteMany()
 
     const data  = await this.http.get<PokeResponse>( //! respuesta de Axios tipada como PokeResponse
-      ` https://pokeapi.co/api/v2/pokemon?limit=${numsPokemons}`
+      `https://pokeapi.co/api/v2/pokemon?limit=${numsPokemons}`
     )
 
     const pokemonsToInstance: PokemonInstance[] = [] //! Array para almacenar los pokemons a insertar en la base de datos

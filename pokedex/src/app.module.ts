@@ -9,13 +9,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PokemonModule } from './pokemon/pokemon.module.js';
 import { SeedModule } from './seed/seed.module.js';
 import { EnvConfiguration } from './common/config/env.config.js';
+import { JoiValidationSchema } from './common/config/joi.validation.js';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [ EnvConfiguration ]
+      load: [ EnvConfiguration ],
+      validationSchema: JoiValidationSchema
     }),
     ServeStaticModule.forRoot({
       rootPath: join(cwd(),  'public'), //! servir contenido estatico

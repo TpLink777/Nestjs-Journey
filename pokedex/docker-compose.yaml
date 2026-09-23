@@ -3,7 +3,7 @@ services:
   pokedex:
     depends_on:
       - db
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     image: pokedex-docker
@@ -15,7 +15,7 @@ services:
       MONGODB: ${MONGODB}
       PORT: ${PORT}
       DEFAULT_LIMIT: ${DEFAULT_LIMIT}
-
+      DEFAULT_INSERT_LIMIT: ${DEFAULT_INSERT_LIMIT}
 
   db:
     image: mongo:8.0

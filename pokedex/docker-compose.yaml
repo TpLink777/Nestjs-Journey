@@ -1,11 +1,27 @@
 
 services:
-    mongodb:
-      image: mongo:8.0
-      restart: always
-      ports:
-        - 27017:27017
-      environment:
-        MONGODB_DATABASE: nest-pokemon
-      volumes:
-        - ./mongodb_data:/data/db
+  pokedex:
+    depends_on:
+      - db
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: pokedex-docker
+    container_name: pokedex
+    restart: always # reiniciar el contenedor si se detiene
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      MONGODB: ${MONGODB}
+      PORT: ${PORT}
+      DEFAULT_LIMIT: ${DEFAULT_LIMIT}
+
+
+  db:
+    image: mongo:8.0
+    container_name: mongo-poke
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGODB_DATABASE: nest-pokemon
